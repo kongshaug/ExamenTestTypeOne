@@ -55,9 +55,10 @@ public class LoginEndpoint {
         throw (AuthenticationException) ex;
       }
       Logger.getLogger(GenericExceptionMapper.class.getName()).log(Level.SEVERE, null, ex);
+   
+    throw new AuthenticationException(ex.getMessage());
+   }
     }
-    throw new AuthenticationException("Invalid username or password! Please try again");
-  }
 
   private String createToken(String userName, List<String> roles) throws JOSEException {
 
