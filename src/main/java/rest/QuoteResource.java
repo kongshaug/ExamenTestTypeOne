@@ -41,7 +41,7 @@ public class QuoteResource {
     public String getQoutes() throws NotFoundException {
         try {
             List<QuoteDTO> qoutes = DF.getData();
-            return "Hi there I am here ";
+            return GSON.toJson(qoutes);
         } catch (InterruptedException | ExecutionException ex) {
 
             throw new NotFoundException(ex.getMessage());
