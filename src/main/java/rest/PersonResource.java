@@ -5,6 +5,7 @@
  */
 package rest;
 
+import DTO.HobbyDTO;
 import DTO.PersonDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -76,6 +77,30 @@ public class PersonResource {
     Person person = PF.getPersonByPhone(phone);
        
         return GSON.toJson(new PersonDTO(person));
+    }
+    
+       @Path("hobby/{hobby}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonsByHobby(@PathParam("hobby") String hobby) throws NotFoundException {
+    List<Person> people = PF.getPersonByHobby(hobby);
+    List<PersonDTO> peopleDTO = new ArrayList<PersonDTO>();
+           for (Person person : people) {
+               peopleDTO.add(new PersonDTO(person));
+           }
+        return GSON.toJson(peopleDTO);
+    }
+    
+    @Path("hobbies")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllhobbies() throws NotFoundException {
+    List<Hobby> hobbies = PF.getAllHobby();
+    List<HobbyDTO> hobbiesDTO = new ArrayList<HobbyDTO>();
+        for (Hobby hobby : hobbies) {
+            hobbiesDTO.add(new HobbyDTO(hobby));
+        }
+        return GSON.toJson(hobbiesDTO);
     }
     
 
