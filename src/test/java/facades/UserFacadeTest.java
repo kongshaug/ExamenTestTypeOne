@@ -33,6 +33,9 @@ public class UserFacadeTest {
     public UserFacadeTest() {
     }
 
+    /**
+     *
+     */
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.DROP_AND_CREATE);
@@ -106,4 +109,6 @@ public class UserFacadeTest {
         User result = facade.getVeryfiedUser(username, password);
         assertEquals("admin", result.getUserName());
     }
+    
+    
 }
