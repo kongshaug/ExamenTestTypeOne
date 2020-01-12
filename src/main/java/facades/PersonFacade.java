@@ -5,6 +5,7 @@
  */
 package facades;
 
+import DTO.PersonDTO;
 import entities.Address;
 import entities.Hobby;
 import entities.Person;
@@ -54,6 +55,14 @@ public class PersonFacade {
         }
         return people;
     }
+        public List<PersonDTO>getPeopleDTO(){
+        List<Person> people = getPeople();
+        List<PersonDTO> peopleDTO = new ArrayList<PersonDTO>();
+            for (Person person : people) {
+                peopleDTO.add(new PersonDTO(person));
+            }
+            return peopleDTO;
+        } 
     
     public Person getPersonByName(String name) {
         EntityManager em = emf.createEntityManager();

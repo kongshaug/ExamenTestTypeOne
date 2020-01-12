@@ -5,6 +5,7 @@
  */
 package rest;
 
+import DTO.PersonDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entities.Address;
@@ -21,6 +22,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
 
@@ -39,12 +41,43 @@ public class PersonResource {
     @Context
     private UriInfo context;
 
+    
+    @Path("all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPeople() throws NotFoundException {
-        List<Person> people = PF.getPeople();
+    List<PersonDTO> people = PF.getPeopleDTO();
+        
         return GSON.toJson(people);
     }
+    
+    @Path("id/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonById(@PathParam("id") long id) throws NotFoundException {
+    Person person = PF.getPersonById(id);
+       
+        return GSON.toJson(new PersonDTO(person));
+    }
+    
+     @Path("email/{email}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonById(@PathParam("email") String email) throws NotFoundException {
+    Person person = PF.getPersonByEmail(email);
+       
+        return GSON.toJson(new PersonDTO(person));
+    }
+    
+      @Path("phone/{phone}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonById(@PathParam("phone") int phone) throws NotFoundException {
+    Person person = PF.getPersonByPhone(phone);
+       
+        return GSON.toJson(new PersonDTO(person));
+    }
+    
 
     @Path("populate")
     @GET
