@@ -7,6 +7,7 @@ package DTO;
 
 import entities.Hobby;
 import entities.Person;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,10 +23,25 @@ public class PersonDTO {
     private String lastName;
     private String email;
     private int phone;
-    private HashMap<String, String> hobbyes = new HashMap<String, String>();
+    private ArrayList<HobbyDTO> hobbies = new ArrayList<HobbyDTO>();
     private String street;
     private int zip;
 
+    
+        public PersonDTO(Person person) {
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+        this.email = person.getEmail();
+        this.phone = person.getPhone();
+        for (Hobby hobby : person.getHobbyes()) {
+            hobbies.add(new HobbyDTO(hobby));
+        }
+        this.street = person.getAddress().getStreet();
+        this.zip = person.getAddress().getZip();
+    }
+    
+    
+    
     public Long getId() {
         return id;
     }
@@ -66,13 +82,6 @@ public class PersonDTO {
         this.phone = phone;
     }
 
-    public HashMap<String, String> getHobbyes() {
-        return hobbyes;
-    }
-
-    public void setHobbyes(HashMap<String, String> hobbyes) {
-        this.hobbyes = hobbyes;
-    }
 
     public String getStreet() {
         return street;
@@ -90,17 +99,7 @@ public class PersonDTO {
         this.zip = zip;
     }
 
-    public PersonDTO(Person person) {
-        this.firstName = person.getFirstName();
-        this.lastName = person.getLastName();
-        this.email = person.getEmail();
-        this.phone = person.getPhone();
-        for (Hobby hobby : person.getHobbyes()) {
-            hobbyes.put(hobby.getName(), hobby.getDescription());
-        }
-        this.street = person.getAddress().getStreet();
-        this.zip = person.getAddress().getZip();
-    }
+
     
     
     
