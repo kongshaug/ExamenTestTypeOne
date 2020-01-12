@@ -66,8 +66,8 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("email") String email) throws NotFoundException {
     Person person = PF.getPersonByEmail(email);
-       
-        return GSON.toJson(new PersonDTO(person));
+        ArrayList<PersonDTO> pList= new ArrayList<PersonDTO>();
+        return GSON.toJson( pList.add(new PersonDTO(person)));
     }
     
       @Path("phone/{phone}")
